@@ -1,0 +1,28 @@
+{
+  "type": "module",
+  "name": "calendar-server",
+  "version": "1.0.0",
+  "description": "server for calendar project",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathan-robin/calendar-server.git"
+  },
+  "author": "ROBIN Jonathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathan-robin/calendar-server/issues"
+  },
+  "homepage": "https://github.com/jonathan-robin/calendar-server#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "nodejs": "0.0.0"
+  }
+}

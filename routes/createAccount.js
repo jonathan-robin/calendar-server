@@ -1,4 +1,3 @@
-// const express = require('express');
 import express from 'express';
 import {conn} from '../config/database.js';
 
@@ -25,7 +24,6 @@ const createAccount = (sql, username, pass, callback) =>  {
 
 router.post('/createAccount', async (req, res) => {
     let sql = `SELECT id from user where username="${req.body.username}"`;
-
     createAccount(sql, req.body.username, req.body.pass, (resultat) => {
         if (resultat === 401){ 
             console.log("Nom d'utilisateur déjà utilisé...");

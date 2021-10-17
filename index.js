@@ -4,14 +4,14 @@ import home from './routes/home.js';
 import RefreshToken from './routes/RefreshToken.js';
 import dotenv from 'dotenv';
 import express from 'express';
-
+import cors from 'cors';
 
 // const jwt = require('jsonwebtoken'); 
 // const express = require('express'); 
 dotenv.config(); 
 const app = express(); 
 
-
+app.use(cors());
 app.use(express.json()); 
 app.use(express.urlencoded({ extended : true }))
 

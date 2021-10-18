@@ -19,10 +19,10 @@ const Login = (username, pass, callback) =>  {
                 accessToken = generateAccessToken({...user, id:res})
                 refreshToken = generateRefreshToken({...user, id:res})
             })
-            callback(200, {accessToken, refreshToken})
+            return callback(200, {accessToken, refreshToken})
         }
-        else{
-            return callback(401)
+        else {
+            return callback(401, null)
         }
     })
 }
@@ -30,10 +30,13 @@ const Login = (username, pass, callback) =>  {
 router.post('/login', async (req, res) => {
     Login(req.body.username, req.body.pass, (res_status, token = null) => {
         if (res_status === 200){
+            console.log('send token valid cred')
             res.send(token)
         }
-        else if (res_status === 401){
-            res.status(res_status).send('invalid credentials');
+        else{
+            console.log('send invalid cred')
+            console.log(res_status)
+            res.send(res_status);
         }
 })
 })

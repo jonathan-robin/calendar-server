@@ -3,10 +3,8 @@ import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const router = express.Router(); 
 
-router.post('/home', authenticateToken, (req, res) => {
-    // console.log(req)
+router.get('/home', authenticateToken, (req, res) => {
     res.send(req.user)
-    // res.send(req.user);
 })
 
 export default router;

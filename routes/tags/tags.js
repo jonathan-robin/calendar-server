@@ -11,7 +11,7 @@ const getTags = (user, callback) =>  {
     })
 }
 
-router.post('/tags', authenticateToken, (req, res) => {
+router.post('/tags', authenticateToken, async (req, res) => {
     console.log("enter /tags")
     console.log(req.user)
     getTags(req.user, function(resultat){ 

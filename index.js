@@ -3,14 +3,14 @@ import Login from './routes/login.js';
 import home from './routes/home.js';
 import RefreshToken from './routes/RefreshToken.js';
 import createTodo from './routes/todos/createTodo.js';
-import addTag from './routes/todos/addTag.js';
-import tags from './routes/todos/tags.js';
+import addTag from './routes/tags/addTag.js';
+import tags from './routes/tags/tags.js';
+import getTodos from './routes/todos/getTodo.js';
+import deleteTodo from './routes/todos/deleteTodo.js';
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 
-// const jwt = require('jsonwebtoken'); 
-// const express = require('express'); 
 dotenv.config(); 
 const app = express(); 
 
@@ -25,6 +25,8 @@ app.use('/api/', home);
 app.use('/api/', createTodo);
 app.use('/api/', addTag);
 app.use('/api/', tags);
+app.use('/api/', getTodos)
+app.use('/api/', deleteTodo)
 
 app.listen('5000', () => {console.log('listening on port 5000')})
 

@@ -3,6 +3,7 @@ import {conn} from '../config/database.js';
 import { User } from '../classes/user.js';
 import { generateAccessToken } from '../config/jwToken.js';
 import { generateRefreshToken } from '../config/RefreshJwToken.js';
+import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const router = express.Router(); 
 let accessToken, refreshToken;
@@ -12,14 +13,15 @@ let sql_check_credentials = (username, pass) => {
 };
 
 const Login = (username, pass, callback) =>  {
-    conn.query(sql_check_credentials(username, pass),  async function(err, res, field){
+    conn.query(sql_check_credentials(username, pass), function(err, res, field){
         if (res.length === 1){
             let user = new User(username, pass); 
-            await user.id.then((res) =>{ 
-                accessToken = generateAccessToken({...user, id:res})
-                refreshToken = generateRefreshToken({...user, id:res})
+            user.id.then((id) =>{ 
+                console.log(id)
+                accessToken = generateAccessToken({...user, id})
+                refreshToken = generateRefreshToken({...user, id})
+                return callback(200, {accessToken, refreshToken, username, id})
             })
-            return callback(200, {accessToken, refreshToken})
         }
         else {
             return callback(401, null)
@@ -27,15 +29,13 @@ const Login = (username, pass, callback) =>  {
     })
 }
 
-router.post('/login', async (req, res) => {
-    Login(req.body.username, req.body.pass, (res_status, token = null) => {
+router.post('/login', (req, res) => {
+    Login(req.body.username, req.body.pass, (res_status, user_infos = null) => {
+        console.log(res_status)
         if (res_status === 200){
-            console.log('send token valid cred')
-            res.send(token)
+            res.send(user_infos)
         }
         else{
-            console.log('send invalid cred')
-            console.log(res_status)
             res.send(res_status);
         }
 })
